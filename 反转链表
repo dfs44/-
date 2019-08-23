@@ -1,0 +1,39 @@
+#include<cstdio>
+#include<cstring>
+#include<string>
+#include<cmath>
+#include<cstdlib>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+const int N = 100005;
+struct nodata1 {
+	int address;
+	int data;
+	int next;
+}a[N],*b[N];
+
+int main()
+{
+	int i, j,head,n=0,k;
+	int address, data, next;
+	scanf("%d %d %d", &head, &n, &k);
+	for (i = 0; i < n; i++) {
+		scanf("%d %d %d", &address, &data, &next);
+		a[address].address = address;
+		a[address].data = data;
+		a[address].next = next;
+	}
+	for (j = 0, i = head; i != -1; i = a[i].next)b[j++] = &a[i];
+	for (i = 0; i <= j - k; i += k) reverse(b + i, b + i + k);
+	for (int m = 0; m < j; m++) {
+		if (m != j - 1) {
+			printf("%05d %d %05d\n", b[m]->address, b[m]->data, b[m + 1]->address);
+		}
+		else {
+			printf("%05d %d -1\n", b[m]->address, b[m]->data);
+		}
+	}
+	//printf("%d\n", j);
+	return 0;
+}
